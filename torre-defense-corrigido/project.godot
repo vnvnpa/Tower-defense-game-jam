@@ -10,8 +10,7 @@ config_version=5
 
 [application]
 
-config/name="torre defense"
-run/main_scene="uid://cjlq35j0t2hp0"
+config/name="Torre Defense Corrigido"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -26,6 +25,12 @@ window/size/borderless=true
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/stretch/scale_mode="integer"
+
+[file_customization]
+
+folder_colors={
+"res://cenas/inimigos/": "red"
+}
 
 [global_group]
 

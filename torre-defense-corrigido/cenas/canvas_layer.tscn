@@ -1,0 +1,103 @@
+[gd_scene format=3 uid="uid://tol2vn5dvhto"]
+
+[ext_resource type="Script" uid="uid://c6gwymh1jgjs" path="res://script/menu_multiplayer.gd" id="1_vrgnc"]
+[ext_resource type="Theme" uid="uid://5vaghdugc6ib" path="res://themas/butonDeMorte.tres" id="2_vrgnc"]
+
+[sub_resource type="Theme" id="Theme_4wunv"]
+
+[node name="MENUMULTIPLAYER" type="CanvasLayer" unique_id=1560183477]
+script = ExtResource("1_vrgnc")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=405831457]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.4509804)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1031595226]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="criaServ" type="Button" parent="VBoxContainer" unique_id=1975332798]
+layout_mode = 2
+theme = ExtResource("2_vrgnc")
+text = "multiplayer"
+
+[node name="lan" type="Button" parent="VBoxContainer" unique_id=375257367]
+layout_mode = 2
+theme = ExtResource("2_vrgnc")
+text = "solo
+"
+
+[node name="voltar" type="Button" parent="VBoxContainer" unique_id=728868162]
+layout_mode = 2
+theme = ExtResource("2_vrgnc")
+text = "voltar"
+
+[node name="LineEdit" type="LineEdit" parent="." unique_id=918046804]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -99.5
+offset_top = 145.0
+offset_right = 99.5
+offset_bottom = 176.0
+grow_horizontal = 2
+placeholder_text = "Digite o codigo do serv"
+
+[node name="INFO" type="Label" parent="." unique_id=1377655389]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme = SubResource("Theme_4wunv")
+theme_override_colors/font_color = Color(0.5474813, 0, 0.12644416, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 35
+text = "MENU multiplayer
+"
+
+[node name="dadosIP" type="Label" parent="." unique_id=380966735]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme = SubResource("Theme_4wunv")
+theme_override_colors/font_color = Color(0.5474813, 0, 0.12644416, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "MENU multiplayer
+"
+
+[node name="Label2" type="Label" parent="." unique_id=227684628]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme = SubResource("Theme_4wunv")
+theme_override_colors/font_color = Color(0.99999124, 0.7598344, 0.75370896, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "
+"

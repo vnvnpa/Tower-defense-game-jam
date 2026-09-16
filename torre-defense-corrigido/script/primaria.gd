@@ -15,16 +15,30 @@ extends Node2D
 @export var tempo_max_entre_rodadas: float = 8.0
 
 func _ready():
+	print(">>> DEBUG meu ID: ", multiplayer.get_unique_id(), " | is_server(): ", multiplayer.is_server(), " | peer válido: ", multiplayer.multiplayer_peer != null)
 	var largura = get_viewport().get_visible_rect().size.x
 	Rodada.position.x = (largura - Rodada.size.x) / 2
 	Rodada.position.y = 20
 	path_follow_original.set_process(false)
-
 	spawner.spawn_function = _spawn_inimigo
 
 	# só o host roda as ondas; se não tiver multiplayer ativo, is_server() é sempre true
 	if multiplayer.is_server():
+		_aplicar_modo_de_jogo()
 		await iniciar_rodadas()
+
+
+func _aplicar_modo_de_jogo() -> void:
+	# Modo escolhido pelo host no lobby (ver NetworkManager.modo_de_jogo).
+	match NetworkManager.modo_de_jogo:
+		"sobrevivencia":
+			total_rodadas = 9999
+		"corrida":
+			tempo_min_entre_rodadas = 2.0
+			tempo_max_entre_rodadas = 3.0
+		_: # "classico" (ou vazio, se caiu direto aqui fora do lobby)
+			pass
+
 
 func iniciar_rodadas():
 	for i in range(total_rodadas):

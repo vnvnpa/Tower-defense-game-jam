@@ -35,5 +35,8 @@ func tomar_dano(dano: int):
 	life -= dano
 	vida.text = str(life)
 	if life <= 0:
-		ControleDeTudo.coin += 1
+		# FIX: era ControleDeTudo.coin += 1 direto, rodando em cada peer
+		# separadamente (dessincronizava a moeda). ganhar_coin() já é
+		# autoritativa: só o host aplica de fato e replica pra todo mundo.
+		ControleDeTudo.ganhar_coin(1)
 		get_parent().queue_free()

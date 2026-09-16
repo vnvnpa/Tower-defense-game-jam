@@ -20,9 +20,9 @@ metadata/_custom_type_script = "uid://obx0pn0jay11"
 
 [sub_resource type="Curve2D" id="Curve2D_w75ji"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -137, 79, 0, 0, 0, 0, -141, 246, 0, 0, 0, 0, 152, 252, 0, 0, 0, 0, 863, 169, 0, 0, 0, 0, 945, 492, 0, 0, 0, 0, 637, 453, 0, 0, 0, 0, 204, 494, 0, 0, 0, 0, 215, 616, 0, 0, 0, 0, 500, 635, 0, 0, 0, 0, 496, 768)
+"points": PackedVector2Array(0, 0, 0, 0, -345, -31, 0, 0, 0, 0, -80, 231, 0, 0, 0, 0, 152, 252, 0, 0, 0, 0, 863, 169, 0, 0, 0, 0, 924, 314, 0, 0, 0, 0, 945, 492, 0, 0, 0, 0, 637, 453, 0, 0, 0, 0, 204, 494, 0, 0, 0, 0, 215, 616, 0, 0, 0, 0, 500, 635, 0, 0, 0, 0, 496, 768)
 }
-point_count = 10
+point_count = 11
 
 [node name="Node2D" type="Node2D" unique_id=1939666864]
 script = ExtResource("1_ktc6x")
@@ -35,7 +35,7 @@ position = Vector2(33, -87)
 curve = SubResource("Curve2D_w75ji")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D" unique_id=1118525654]
-position = Vector2(-137, 79)
+position = Vector2(-345, -31)
 rotation = 0.0034601938
 rotates = false
 loop = false

@@ -1,13 +1,14 @@
 extends CanvasLayer
 
-@onready var botao_sozinho: Button = $MarginContainer/VBoxContainer/sozinho
-@onready var botao_criar_servidor: Button = $MarginContainer/VBoxContainer/dois
-@onready var botao_voltar: Button = $"MarginContainer/VBoxContainer/sair do jogo"
-@onready var campo_ip: LineEdit = $MarginContainer/VBoxContainer/LineEdit
-@onready var label_ip_local: Label = $MarginContainer/Label
-@onready var label_status: Label = $MarginContainer/Label/Label2
+@onready var botao_sozinho: Button =  $VBoxContainer/lan
+@onready var botao_criar_servidor: Button = $VBoxContainer/criaServ
+@onready var botao_voltar: Button = $VBoxContainer/voltar
+@onready var campo_ip: LineEdit = $LineEdit
+@onready var label_ip_local: Label = $dadosIP
+@onready var label_status: Label = $Label2
 
 const CENA_DO_JOGO := "res://cenas/primaria.tscn"
+const CENA_LOBBY := "res://cenas/lobby.tscn"
 
 
 func _ready() -> void:
@@ -27,6 +28,8 @@ func _ready() -> void:
 	NetworkManager.conexao_falhou.connect(_on_falhou)
 	label_status.text = ""
 	_mostrar_ip_local()
+	NetworkManager.servidor_criado.connect(_on_servidor_criado)
+
 
 
 func _input(event: InputEvent) -> void:
@@ -53,9 +56,10 @@ func _on_sozinho_pressed() -> void:
 
 
 func _on_criar_servidor_pressed() -> void:
+	
 	NetworkManager.criar_servidor()
 	label_status.text = "Servidor criado. Aguardando jogadores..."
-	get_tree().change_scene_to_file(CENA_DO_JOGO)
+
 
 
 func _on_ip_submetido(ip: String) -> void:
@@ -68,7 +72,9 @@ func _on_ip_submetido(ip: String) -> void:
 
 func _on_conectado() -> void:
 	label_status.text = "Conectado!"
-	get_tree().change_scene_to_file(CENA_DO_JOGO)
+	# FIX: ia direto pro jogo (CENA_DO_JOGO) sem passar por lobby nenhum.
+	# Agora todo mundo entra na sala de espera primeiro.
+	get_tree().change_scene_to_file(CENA_LOBBY)
 
 
 func _on_falhou() -> void:
@@ -77,3 +83,11 @@ func _on_falhou() -> void:
 
 func _on_voltar_pressed() -> void:
 	get_tree().change_scene_to_file("res://cenas/menu.tscn")
+
+
+
+func _on_servidor_criado() -> void:
+	label_status.text = "Servidor criado. Aguardando jogadores..."
+	# FIX: ia direto pro jogo (CENA_DO_JOGO) e não dava pra escolher modo
+	# nem ver quem conectou. Agora o host cai no lobby.
+	get_tree().change_scene_to_file(CENA_LOBBY)

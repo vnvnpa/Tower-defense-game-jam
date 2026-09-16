@@ -1,0 +1,66 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://script/lobby.gd" id="1_lobby"]
+[ext_resource type="Theme" uid="uid://5vaghdugc6ib" path="res://themas/butonDeMorte.tres" id="2_lobby"]
+
+[node name="Lobby" type="CanvasLayer"]
+script = ExtResource("1_lobby")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.4509804)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -170.0
+offset_top = -180.0
+offset_right = 170.0
+offset_bottom = 180.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 14
+
+[node name="Titulo" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Sala multiplayer"
+horizontal_alignment = 1
+
+[node name="LabelStatus" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "0 jogador(es) na sala"
+horizontal_alignment = 1
+
+[node name="ListaJogadores" type="ItemList" parent="VBoxContainer"]
+custom_minimum_size = Vector2(300, 110)
+layout_mode = 2
+
+[node name="HBoxModo" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="LabelModo" type="Label" parent="VBoxContainer/HBoxModo"]
+layout_mode = 2
+text = "Modo de jogo: "
+
+[node name="OpcoesModo" type="OptionButton" parent="VBoxContainer/HBoxModo"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BotaoPronto" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_lobby")
+text = "Pronto"
+
+[node name="BotaoVoltar" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_lobby")
+text = "Voltar"

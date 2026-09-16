@@ -3,9 +3,6 @@ extends Node
 # ============================================================
 # NetworkManager - Autoload para multiplayer (Godot 4)
 # ============================================================
-# Adicione este script em Project > Project Settings > Autoload
-# com o nome "NetworkManager"
-#
 # Ele cuida SÓ da camada de rede. O ControleDeTudo continua
 # cuidando do estado do jogo (vida, coin, etc), mas agora só o HOST
 # (peer com autoridade) pode alterar valores compartilhados,
@@ -23,8 +20,13 @@ signal jogador_desconectou(id: int)
 signal conexao_falhou
 signal conectado_ao_servidor
 signal servidor_criado
+signal lista_jogadores_atualizada
+signal modo_de_jogo_atualizado(modo: String)
+signal partida_iniciada
 
-var jogadores := {} # id -> nome (ou dados customizados)
+var jogadores := {} # id -> nome
+var modo_de_jogo := "classico"
+var sala_travada := false
 
 
 func _ready() -> void:
@@ -46,7 +48,9 @@ func criar_servidor() -> void:
 		return
 
 	multiplayer.multiplayer_peer = peer
-	jogadores[1] = "Host" # id 1 é sempre o servidor
+	sala_travada = false
+	modo_de_jogo = "classico"
+	jogadores = {1: "Host"} # id 1 é sempre o servidor
 	servidor_criado.emit()
 	print("Servidor criado na porta %d" % PORTA)
 
@@ -68,7 +72,9 @@ func entrar_servidor(ip: String) -> void:
 func desconectar() -> void:
 	if peer:
 		peer.close()
+	peer = null
 	jogadores.clear()
+	sala_travada = false
 
 
 # ------------------------------------------------------------
@@ -77,15 +83,21 @@ func desconectar() -> void:
 func _on_peer_connected(id: int) -> void:
 	print("Jogador conectou: %d" % id)
 	jogador_conectou.emit(id)
-	# Se eu sou o host, mando o estado atual pro novo jogador
+	# Se eu sou o host, registro o novo jogador e mando pra ele o estado
+	# atual do jogo + a lista de jogadores + o modo escolhido.
 	if multiplayer.is_server():
+		jogadores[id] = "Jogador %d" % id
 		_sincronizar_estado_para.rpc_id(id, ControleDeTudo.vida, ControleDeTudo.coin)
+		_sincronizar_lista_jogadores.rpc(jogadores)
+		_sincronizar_modo.rpc(modo_de_jogo)
 
 
 func _on_peer_disconnected(id: int) -> void:
 	print("Jogador saiu: %d" % id)
-	jogadores.erase(id)
 	jogador_desconectou.emit(id)
+	if multiplayer.is_server():
+		jogadores.erase(id)
+		_sincronizar_lista_jogadores.rpc(jogadores)
 
 
 func _on_connected_ok() -> void:
@@ -114,19 +126,62 @@ func _sincronizar_estado_para(vida: int, coin: int) -> void:
 
 
 # ------------------------------------------------------------
-# EXEMPLO: SPAWN DE TORRE AUTORITATIVO
+# LOBBY: lista de jogadores, modo de jogo e travar a sala
+# ------------------------------------------------------------
+@rpc("authority", "call_local", "reliable")
+func _sincronizar_lista_jogadores(nova_lista: Dictionary) -> void:
+	jogadores = nova_lista
+	lista_jogadores_atualizada.emit()
+
+
+func definir_modo_de_jogo(modo: String) -> void:
+	if not multiplayer.is_server():
+		return
+	modo_de_jogo = modo
+	_sincronizar_modo.rpc(modo)
+
+
+@rpc("authority", "call_local", "reliable")
+func _sincronizar_modo(modo: String) -> void:
+	modo_de_jogo = modo
+	modo_de_jogo_atualizado.emit(modo)
+
+
+func travar_sala() -> void:
+	if not multiplayer.is_server():
+		return
+	if peer:
+		peer.refuse_new_connections = true
+	sala_travada = true
+
+
+func iniciar_partida() -> void:
+	if not multiplayer.is_server():
+		return
+	travar_sala() # a partir daqui, ninguém mais entra na sala
+	ControleDeTudo.resetar_estado()
+	_iniciar_partida.rpc()
+
+
+@rpc("authority", "call_local", "reliable")
+func _iniciar_partida() -> void:
+	partida_iniciada.emit()
+
+
+# ------------------------------------------------------------
+# SPAWN DE TORRE AUTORITATIVO
 # ------------------------------------------------------------
 # Fluxo:
-# 1. Cliente arrasta a torre e solta -> chama pedir_spawn_torre()
-# 2. pedir_spawn_torre roda LOCAL primeiro (call_local) então
-#    envia pro servidor via RPC "any_peer"
+# 1. Cliente arrasta a torre (preview instanciado pela loja) e solta
+# 2. O clique roda LOCAL primeiro (atiradores.gd -> colocar()) e manda
+#    o pedido pro servidor via RPC "any_peer" (rpc_id(1, ...))
 # 3. Só quem tem is_server() == true realmente valida e decide
 # 4. Se validado, o servidor chama spawnar_torre.rpc() pra
-#    replicar em TODOS os clientes (incluindo ele mesmo)
+#    instanciar a torre "oficial" em TODOS os peers (incluindo ele mesmo)
 # ------------------------------------------------------------
 
 @rpc("any_peer", "call_local", "reliable")
-func pedir_spawn_torre(tipo_torre: String, posicao: Vector2) -> void:
+func pedir_spawn_torre(tipo_torre: String, cena_torre: String, posicao: Vector2) -> void:
 	# Só o servidor processa a validação
 	if not multiplayer.is_server():
 		return
@@ -141,18 +196,24 @@ func pedir_spawn_torre(tipo_torre: String, posicao: Vector2) -> void:
 		return
 
 	# Validado (coin já foi descontado e sincronizado por gastar_coin): replica o spawn
-	spawnar_torre.rpc(tipo_torre, posicao)
+	spawnar_torre.rpc(cena_torre, posicao)
 
 
 @rpc("authority", "call_local", "reliable")
-func spawnar_torre(tipo_torre: String, posicao: Vector2) -> void:
-	# Roda em TODOS os peers (inclusive o host), efeito visual real
-	# Troque isso pela sua lógica real de instanciar a cena da torre
-	print("Spawnando torre %s em %s" % [tipo_torre, posicao])
-	# Exemplo:
-	# var torre = preload("res://cenas/torres/%s.tscn" % tipo_torre).instantiate()
-	# torre.global_position = posicao
-	# get_tree().current_scene.add_child(torre)
+func spawnar_torre(cena_torre: String, posicao: Vector2) -> void:
+	# Roda em TODOS os peers (inclusive o host): instancia a torre de verdade.
+	var cena: PackedScene = load(cena_torre)
+	if cena == null:
+		push_error("Cena de torre inválida: %s" % cena_torre)
+		return
+
+	var torre = cena.instantiate()
+	# FIX (race condition): setar isso ANTES do add_child, pois o _ready()
+	# de atiradores.gd só decide o "monitorable" da torre quando resume do
+	# seu próprio await, e nessa hora ele já vai ler arrastando = false.
+	torre.arrastando = false # já chega fixada, não segue mais o mouse
+	get_tree().current_scene.add_child(torre)
+	torre.global_position = posicao
 
 
 @rpc("authority", "call_remote", "reliable")
@@ -173,7 +234,7 @@ func _custo_da_torre(tipo: String) -> int:
 
 
 # ------------------------------------------------------------
-# EXEMPLO: DANO AUTORITATIVO EM INIMIGO
+# DANO AUTORITATIVO EM INIMIGO
 # ------------------------------------------------------------
 @rpc("any_peer", "call_local", "reliable")
 func pedir_dano_inimigo(caminho_inimigo: NodePath, dano: int) -> void:

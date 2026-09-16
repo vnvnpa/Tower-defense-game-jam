@@ -1,0 +1,28 @@
+[gd_resource type="Theme" format=3 uid="uid://5vaghdugc6ib"]
+
+[ext_resource type="FontFile" uid="uid://dmxxnq20obiwq" path="res://fontes/smile_moon/Smile Moon.otf" id="1_dpnig"]
+
+[sub_resource type="FontVariation" id="FontVariation_ybl2d"]
+base_font = ExtResource("1_dpnig")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7v6sl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dpnig"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7v6sl"]
+bg_color = Color(0.09803922, 0.6, 0.6, 1)
+
+[resource]
+Button/colors/font_color = Color(0.15294118, 0.13333334, 0.8745098, 1)
+Button/colors/font_disabled_color = Color(0.02018252, 0.074732356, 0.12572226, 1)
+Button/colors/font_focus_color = Color(1, 0.70980394, 0.9490196, 1)
+Button/colors/font_hover_color = Color(0.47346193, 0.5738972, 0.9821865, 1)
+Button/colors/font_hover_pressed_color = Color(1, 0.47843137, 1, 1)
+Button/colors/font_outline_color = Color(0, 0.023529412, 0, 1)
+Button/colors/font_pressed_color = Color(0.6, 0.8862745, 1, 1)
+Button/constants/shadow_offset_x = 5
+Button/font_sizes/font_size = 35
+Button/fonts/font = SubResource("FontVariation_ybl2d")
+Button/styles/hover = SubResource("StyleBoxTexture_7v6sl")
+Button/styles/normal = SubResource("StyleBoxEmpty_dpnig")
+Button/styles/pressed = SubResource("StyleBoxFlat_7v6sl")
