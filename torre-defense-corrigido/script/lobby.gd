@@ -5,9 +5,11 @@ extends CanvasLayer
 @onready var botao_pronto: Button = $VBoxContainer/BotaoPronto
 @onready var botao_voltar: Button = $VBoxContainer/BotaoVoltar
 @onready var label_status: Label = $VBoxContainer/LabelStatus
+@onready var label_codigo: Label = $VBoxContainer/LabelCodigo
+@onready var caixa_principal: VBoxContainer = $VBoxContainer
 
 const CENA_DO_JOGO := "res://cenas/primaria.tscn"
-const CENA_MENU_MULTIPLAYER := "res://cenas/canvas_layer.tscn"
+const CENA_MENU_MULTIPLAYER := "res://cenas/menus/menumultiplayer.tscn"
 
 # Precisa bater com o que primaria.gd sabe interpretar em _aplicar_modo_de_jogo()
 var modos := ["classico", "sobrevivencia", "corrida"]
@@ -36,10 +38,14 @@ func _ready() -> void:
 	NetworkManager.modo_de_jogo_atualizado.connect(_on_modo_atualizado)
 	NetworkManager.partida_iniciada.connect(_on_partida_iniciada)
 	NetworkManager.jogador_desconectou.connect(_on_jogador_saiu)
+	NetworkManager.perdeu_conexao.connect(_on_perdeu_conexao)
 
 	_atualizar_lista()
 	if not sou_host:
 		label_status.text += "\nAguardando o host começar..."
+
+	label_codigo.text = "Código da sala: %s" % NetworkManager.codigo_sala
+	caixa_principal.modulate = PerfilJogador.cor_favorita
 
 
 func _atualizar_lista() -> void:
@@ -50,6 +56,7 @@ func _atualizar_lista() -> void:
 			nome += " (você)"
 		lista_jogadores.add_item(nome)
 	label_status.text = "%d jogador(es) na sala" % NetworkManager.jogadores.size()
+	label_codigo.text = "Código da sala: %s" % NetworkManager.codigo_sala
 
 
 func _on_modo_selecionado(indice: int) -> void:
@@ -82,4 +89,10 @@ func _on_jogador_saiu(_id: int) -> void:
 
 func _on_voltar_pressed() -> void:
 	NetworkManager.desconectar()
+	get_tree().change_scene_to_file(CENA_MENU_MULTIPLAYER)
+
+
+func _on_perdeu_conexao() -> void:
+	# Servidor caiu de verdade (não fui eu que saí) -- não faz sentido
+	# deixar o cliente preso numa sala morta, então volta pro menu sozinho.
 	get_tree().change_scene_to_file(CENA_MENU_MULTIPLAYER)

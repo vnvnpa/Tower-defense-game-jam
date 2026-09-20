@@ -10,7 +10,8 @@ config_version=5
 
 [application]
 
-config/name="Torre Defense Corrigido"
+config/name="Torre Defense - vnvnpa"
+run/main_scene="res://cenas/menus/perfil.tscn"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -18,6 +19,7 @@ config/icon="res://icon.svg"
 
 ControleDeTudo="*uid://bbaxt47bq61xk"
 NetworkManager="*uid://cin7wnduka5os"
+PerfilJogador="*res://script/PerfilJogador.gd"
 
 [display]
 
@@ -29,7 +31,8 @@ window/stretch/scale_mode="integer"
 [file_customization]
 
 folder_colors={
-"res://cenas/inimigos/": "red"
+"res://cenas/inimigos/": "red",
+"res://cenas/menus/": "yellow"
 }
 
 [global_group]

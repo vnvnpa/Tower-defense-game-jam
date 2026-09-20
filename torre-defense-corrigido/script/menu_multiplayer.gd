@@ -6,9 +6,10 @@ extends CanvasLayer
 @onready var campo_ip: LineEdit = $LineEdit
 @onready var label_ip_local: Label = $dadosIP
 @onready var label_status: Label = $Label2
+@onready var caixa_botoes: VBoxContainer = $VBoxContainer
 
 const CENA_DO_JOGO := "res://cenas/primaria.tscn"
-const CENA_LOBBY := "res://cenas/lobby.tscn"
+const CENA_LOBBY := "res://cenas/menus/lobby.tscn"
 
 
 func _ready() -> void:
@@ -18,18 +19,20 @@ func _ready() -> void:
 	# porque process_mode padrão dos nós é Inherit e a árvore toda para.
 	get_tree().paused = false
 
-	print(">>> _ready rodou de novo")
 	botao_sozinho.pressed.connect(_on_sozinho_pressed)
-
 	botao_criar_servidor.pressed.connect(_on_criar_servidor_pressed)
 	botao_voltar.pressed.connect(_on_voltar_pressed)
-	campo_ip.text_submitted.connect(_on_ip_submetido)
+	campo_ip.text_submitted.connect(_on_ip_ou_codigo_submetido)
 	NetworkManager.conectado_ao_servidor.connect(_on_conectado)
 	NetworkManager.conexao_falhou.connect(_on_falhou)
+	NetworkManager.codigo_nao_encontrado.connect(_on_codigo_nao_encontrado)
 	label_status.text = ""
 	_mostrar_ip_local()
 	NetworkManager.servidor_criado.connect(_on_servidor_criado)
 
+	# Nick já vem definido desde a tela de perfil (boot do jogo), então aqui
+	# não precisa perguntar de novo -- só aplica a cor favorita nos botões.
+	caixa_botoes.modulate = PerfilJogador.cor_favorita
 
 
 func _input(event: InputEvent) -> void:
@@ -51,23 +54,28 @@ func _mostrar_ip_local() -> void:
 
 
 func _on_sozinho_pressed() -> void:
-	print(">>> cliquei em sozinho")
 	get_tree().change_scene_to_file(CENA_DO_JOGO)
 
 
 func _on_criar_servidor_pressed() -> void:
-	
 	NetworkManager.criar_servidor()
 	label_status.text = "Servidor criado. Aguardando jogadores..."
 
 
-
-func _on_ip_submetido(ip: String) -> void:
-	if ip.strip_edges() == "":
-		label_status.text = "Digite um IP válido."
+func _on_ip_ou_codigo_submetido(valor: String) -> void:
+	var limpo := valor.strip_edges()
+	if limpo == "":
+		label_status.text = "Digite um IP ou o código da sala."
 		return
-	label_status.text = "Conectando a %s..." % ip
-	NetworkManager.entrar_servidor(ip)
+
+	if "." in limpo:
+		# Tem ponto -> parece um IP de verdade.
+		label_status.text = "Conectando a %s..." % limpo
+		NetworkManager.entrar_servidor(limpo)
+	else:
+		# Sem ponto -> trata como código curto de sala (ex: "ABCD").
+		label_status.text = "Procurando sala com código %s..." % limpo.to_upper()
+		NetworkManager.entrar_por_codigo(limpo)
 
 
 func _on_conectado() -> void:
@@ -78,12 +86,15 @@ func _on_conectado() -> void:
 
 
 func _on_falhou() -> void:
-	label_status.text = "Falha ao conectar. Verifique o IP."
+	label_status.text = "Falha ao conectar. Verifique o IP ou o código."
+
+
+func _on_codigo_nao_encontrado() -> void:
+	label_status.text = "Servidor não encontrado."
 
 
 func _on_voltar_pressed() -> void:
-	get_tree().change_scene_to_file("res://cenas/menu.tscn")
-
+	get_tree().change_scene_to_file("res://cenas/menus/menu.tscn")
 
 
 func _on_servidor_criado() -> void:

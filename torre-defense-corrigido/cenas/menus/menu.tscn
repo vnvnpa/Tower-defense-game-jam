@@ -87,6 +87,20 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_mmoso")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_qvcyk")
 text = "SAIR DO JOGO"
 
+[node name="EDITARPERFIL" type="Button" parent="Control/MarginContainer/VBoxContainer" unique_id=1124474640]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_64url")
+theme_override_constants/outline_size = 8
+theme_override_styles/normal = SubResource("StyleBoxEmpty_64url")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_nbnbt")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_hsu4v")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_mmoso")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qvcyk")
+text = "EDITAR PERFIL"
+
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/JOGAR" to="." method="_on_jogar_pressed"]
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/CREDITO" to="." method="_on_credito_pressed"]
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/SAIRDOJOGO" to="." method="_on_sairdojogo_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/EDITARPERFIL" to="." method="_on_editar_perfil_pressed"]
