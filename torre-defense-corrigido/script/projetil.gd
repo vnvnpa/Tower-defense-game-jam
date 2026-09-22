@@ -8,8 +8,11 @@ func setup(dir: Vector2, vel: float):
 	direcao = dir
 	velocidade = vel
 
+
 func _ready():
+	add_to_group("projetil_agua")
 	area_entered.connect(_on_atingiu)
+
 
 func _process(delta):
 	global_position += direcao * velocidade * delta

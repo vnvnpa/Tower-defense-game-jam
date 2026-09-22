@@ -80,15 +80,39 @@ func resetar_estado():
 	vida = 5
 	jogo_acabou = false
 	coin = 30
-	_sincronizar_reset.rpc(vida, coin)
+	_sincronizar_reset.rpc(vida, coin, cenaAtual)
 
 
+# FIX: antes só o host trocava de cena/fechava a tela de derrota (dentro do
+# _on_re_zero_pressed do menu_morte.gd), e o valor de vida/coin era
+# replicado mas NADA tirava a tela de Game Over de quem era cliente -- eles
+# ficavam presos ali pra sempre. Agora a troca de cena e a remoção do menu
+# de derrota acontecem aqui dentro, então rodam em TODO MUNDO (é um RPC
+# "call_local").
 @rpc("authority", "call_local", "reliable")
-func _sincronizar_reset(nova_vida: int, novo_coin: int) -> void:
+func _sincronizar_reset(nova_vida: int, novo_coin: int, cena: String) -> void:
 	get_tree().paused = false
 	vida = nova_vida
 	coin = novo_coin
 	jogo_acabou = false
+
+	for filho in get_children():
+		if filho.is_in_group("menu_morte"):
+			filho.queue_free()
+
+	if cena != "":
+		get_tree().change_scene_to_file(cena)
+
+
+# Reset "local", sem rede -- usado quando o jogador (host ou cliente) sai
+# pra o menu principal em vez de reiniciar a partida. Não faz sentido
+# broadcastar isso pros outros peers, porque quem chama já está saindo da
+# sala (NetworkManager.desconectar() é chamado logo em seguida).
+func resetar_estado_local() -> void:
+	get_tree().paused = false
+	vida = 5
+	jogo_acabou = false
+	coin = 30
 
 
 func criarfilhoInvalido():

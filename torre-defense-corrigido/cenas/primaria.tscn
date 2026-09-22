@@ -3,19 +3,33 @@
 [ext_resource type="Script" uid="uid://drey5xjoh884h" path="res://script/primaria.gd" id="1_ktc6x"]
 [ext_resource type="Script" uid="uid://cxa4efqsu0k4j" path="res://script/path_follow_2d.gd" id="1_w75ji"]
 [ext_resource type="Script" uid="uid://obx0pn0jay11" path="res://script/new_script.gd" id="2_8j7ug"]
-[ext_resource type="PackedScene" uid="uid://duh3jff346qh3" path="res://cenas/inimigos/slime.tscn" id="3_oct4s"]
 [ext_resource type="PackedScene" uid="uid://bv6y1ckpdqb5i" path="res://cenas/ControleTudo,hub.tscn" id="4_7urru"]
 [ext_resource type="PackedScene" uid="uid://cxxpc1nss8vjp" path="res://cenas/loja.tscn" id="4_ktc6x"]
-[ext_resource type="PackedScene" uid="uid://bjjqrxucxlxkt" path="res://cenas/inimigos/slimeVerdeApagado.tscn" id="4_ltjes"]
+[ext_resource type="PackedScene" uid="uid://b7o5263tg4apx" path="res://cenas/inimigos/bege.tscn" id="6_43jm6"]
+[ext_resource type="PackedScene" uid="uid://d3cj5ohehh66h" path="res://cenas/inimigos/Rimuru.tscn" id="6_ltjes"]
+[ext_resource type="PackedScene" uid="uid://bmqt67hy3p14l" path="res://cenas/inimigos/verdeClaro.tscn" id="7_azul"]
+[ext_resource type="PackedScene" uid="uid://421q5qmgf2r4" path="res://cenas/inimigos/Rosa.tscn" id="7_rosa"]
+[ext_resource type="PackedScene" uid="uid://d22pq7sjq7dr8" path="res://cenas/inimigos/miniBossVermelho.tscn" id="7_vermelho"]
 
-[sub_resource type="Resource" id="Resource_ktc6x"]
+[sub_resource type="Resource" id="Resource_dpnig"]
 script = ExtResource("2_8j7ug")
-cena = ExtResource("3_oct4s")
+cena = ExtResource("7_rosa")
+peso = 2
 metadata/_custom_type_script = "uid://obx0pn0jay11"
 
-[sub_resource type="Resource" id="Resource_7urru"]
+[sub_resource type="Resource" id="Resource_m1dq0"]
 script = ExtResource("2_8j7ug")
-cena = ExtResource("4_ltjes")
+cena = ExtResource("7_azul")
+metadata/_custom_type_script = "uid://obx0pn0jay11"
+
+[sub_resource type="Resource" id="Resource_m264k"]
+script = ExtResource("2_8j7ug")
+cena = ExtResource("6_43jm6")
+metadata/_custom_type_script = "uid://obx0pn0jay11"
+
+[sub_resource type="Resource" id="Resource_8f07e"]
+script = ExtResource("2_8j7ug")
+cena = ExtResource("6_ltjes")
 metadata/_custom_type_script = "uid://obx0pn0jay11"
 
 [sub_resource type="Curve2D" id="Curve2D_w75ji"]
@@ -26,7 +40,9 @@ point_count = 11
 
 [node name="Node2D" type="Node2D" unique_id=1939666864]
 script = ExtResource("1_ktc6x")
-inimigos_normais = Array[ExtResource("2_8j7ug")]([SubResource("Resource_ktc6x"), SubResource("Resource_7urru")])
+inimigos_normais = Array[ExtResource("2_8j7ug")]([SubResource("Resource_dpnig"), SubResource("Resource_m1dq0"), SubResource("Resource_m264k"), SubResource("Resource_8f07e")])
+miniboss_scene = ExtResource("7_vermelho")
+boss_final_scene = ExtResource("6_ltjes")
 
 [node name="CanvasLayer" parent="." unique_id=402603602 instance=ExtResource("4_7urru")]
 

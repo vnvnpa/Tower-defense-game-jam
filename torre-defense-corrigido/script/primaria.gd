@@ -80,6 +80,20 @@ func _spawn_inimigo(caminho_da_cena: String) -> Node:
 	novo_path_follow.set_process(true)
 
 	var inimigo = cena_escolhida.instantiate()
+
+	# FIX: a "velocidade" configurada em cada inimigo (slime.gd) nunca era
+	# usada de verdade -- quem manda na velocidade real é o PathFollow2D que
+	# carrega o inimigo pelo caminho, e ele tinha sua própria velocidade fixa,
+	# igual pra todo mundo. Resultado: BOSS_VERMELHO e RIMURU tinham "vida"
+	# maior mas se moviam exatamente igual a um slime comum. Chamamos
+	# configurar_inimigo() aqui (antes de entrar na árvore, por isso ainda
+	# não mexe em nenhum nó) só pra já saber a velocidade certa e repassar
+	# pro PathFollow2D.
+	if inimigo.has_method("configurar_inimigo"):
+		inimigo.configurar_inimigo()
+	if "velocidade" in inimigo:
+		novo_path_follow.velocidade = inimigo.velocidade
+
 	novo_path_follow.add_child(inimigo)
 
 	return novo_path_follow

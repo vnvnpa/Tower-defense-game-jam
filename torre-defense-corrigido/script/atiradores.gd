@@ -22,9 +22,30 @@ var pronto_para_fixar: bool = false
 
 @onready var collision_shape_2d: CollisionShape2D = $are/CollisionShape2D
 
-@onready var visivel: Sprite2D = $visivel
-@onready var node_2d: Node2D = $"."
 
+@onready var node_2d: Node2D = $"."
+@export var alcance := 200.0
+var mostrar_alcance := false
+
+func _draw():
+	if mostrar_alcance:
+		draw_arc(
+			Vector2.ZERO,
+			alcance,
+			0,
+			TAU,
+			64,
+			Color(0, 1, 0, 0.5),
+			2.0
+		)
+
+func mostrar():
+	mostrar_alcance = true
+	queue_redraw()
+
+func esconder():
+	mostrar_alcance = false
+	queue_redraw()
 
 var inimigos_no_alcance: Array = []
 var pode_atirar: bool = true
@@ -44,41 +65,109 @@ func _ready():
 	area_de_receber_b_.mouse_exited.connect(_on_mouse_exited)
 
 func _on_mouse_entered():
-	visivel.visible = true
+	mostrar()
 
 func _on_mouse_exited():
-	visivel.visible = false
+	esconder()
 
 func _process(_delta):
 	if arrastando:
 		global_position = get_global_mouse_position()
 		return
 
-	if inimigos_no_alcance.size() > 0:
-		var alvo = inimigos_no_alcance[0]
-		if is_instance_valid(alvo):
-			rotacionar_para(alvo)
-			if pode_atirar:
-				atirar(alvo)
-		else:
-			inimigos_no_alcance.erase(alvo)
+	# Remove alvos inválidos ou inimigos que já estão morrendo
+	for area in inimigos_no_alcance.duplicate():
+		if not is_instance_valid(area):
+			inimigos_no_alcance.erase(area)
+			continue
 
+		var inimigo = area.get_parent()
+
+		if not is_instance_valid(inimigo):
+			inimigos_no_alcance.erase(area)
+			continue
+
+		if inimigo.has_method("esta_morrendo"):
+			if inimigo.esta_morrendo():
+				inimigos_no_alcance.erase(area)
+
+	# Não tem inimigos válidos
+	if inimigos_no_alcance.is_empty():
+		return
+
+	var alvo: Area2D = inimigos_no_alcance[0]
+
+	if not is_instance_valid(alvo):
+		inimigos_no_alcance.erase(alvo)
+		return
+
+	var inimigo = alvo.get_parent()
+
+	if not is_instance_valid(inimigo):
+		inimigos_no_alcance.erase(alvo)
+		return
+
+	# NÃO atira em inimigo que está morrendo
+	if inimigo.has_method("esta_morrendo"):
+		if inimigo.esta_morrendo():
+			inimigos_no_alcance.erase(alvo)
+			return
+
+	rotacionar_para(alvo)
+
+	if pode_atirar:
+		atirar(alvo)
 func rotacionar_para(alvo: Area2D):
 	var direcao = alvo.global_position - global_position
 	rotation = direcao.angle()
 
 func atirar(alvo: Area2D):
+	if not is_instance_valid(alvo):
+		return
+
+	# O script do inimigo está no pai da Area2D
+	var inimigo = alvo.get_parent()
+
+	if not is_instance_valid(inimigo):
+		return
+
+	# Verifica se o inimigo já está morrendo
+	if inimigo.has_method("esta_morrendo"):
+		if inimigo.esta_morrendo():
+			inimigos_no_alcance.erase(alvo)
+			return
+
+	# Segurança extra
+	if "vida" in inimigo:
+		if inimigo.vida <= 0:
+			inimigos_no_alcance.erase(alvo)
+			return
+
+	# Só depois de todas as verificações bloqueia o próximo tiro
 	pode_atirar = false
-	var direcao = (alvo.global_position - ponto_de_tiro.global_position).normalized()
+
+	var direcao = (
+		alvo.global_position -
+		ponto_de_tiro.global_position
+	).normalized()
 
 	var projetil = projetil_scene.instantiate()
+
 	get_tree().current_scene.add_child(projetil)
+
 	projetil.global_position = ponto_de_tiro.global_position
 	projetil.rotation = direcao.angle()
-	projetil.setup(direcao, velocidade_projetil)
+
+	projetil.setup(
+		direcao,
+		velocidade_projetil
+	)
 
 	await get_tree().create_timer(cadencia).timeout
-	pode_atirar = true
+
+	# A torre pode ter sido destruída durante o await
+	if is_instance_valid(self):
+		pode_atirar = true
 
 func _on_inimigo_entrou(area):
 	if area.is_in_group("inimigos"):

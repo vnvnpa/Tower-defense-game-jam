@@ -20,7 +20,7 @@ func _ready() -> void:
 	# Já existe perfil salvo e não foi pedido pra editar -- pula direto pro
 	# menu, sem perguntar de novo.
 	if PerfilJogador.tem_perfil_salvo() and not editando:
-		get_tree().change_scene_to_file(CENA_MENU)
+		get_tree().call_deferred("change_scene_to_file",CENA_MENU)
 		return
 
 	if PerfilJogador.tem_perfil_salvo():
@@ -32,7 +32,7 @@ func _ready() -> void:
 		# Primeira vez no jogo: valores padrão razoáveis.
 		campo_idade.value = 10
 		campo_cor.color = Color(0.2, 0.6, 1.0)
-
+		ColorPicker.color = ColorPicker.color * 5.0
 
 func _on_continuar_pressed() -> void:
 	var nick := campo_nick.text.strip_edges()

@@ -14,7 +14,7 @@ bg_color = Color(0, 0.41960785, 1, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2rmge"]
 
-[node name="MENUMORTE" type="CanvasLayer" unique_id=842605956]
+[node name="MENUMORTE" type="CanvasLayer" unique_id=842605956 groups=["menu_morte"]]
 process_mode = 2
 script = ExtResource("1_jobrb")
 

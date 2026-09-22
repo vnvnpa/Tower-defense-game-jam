@@ -375,7 +375,9 @@ func pedir_spawn_torre(tipo_torre: String, cena_torre: String, posicao: Vector2)
 	if not ControleDeTudo.gastar_coin(custo):
 		# sem grana: avisa só quem pediu
 		var id_solicitante := multiplayer.get_remote_sender_id()
-		if id_solicitante != 0:
+		if id_solicitante == multiplayer.get_unique_id():
+			_spawn_negado()
+		else:
 			_spawn_negado.rpc_id(id_solicitante)
 		return
 
@@ -437,3 +439,48 @@ func aplicar_dano_inimigo(caminho_inimigo: NodePath, dano: int) -> void:
 	var inimigo := get_node_or_null(caminho_inimigo)
 	if inimigo and inimigo.has_method("tomar_dano"):
 		inimigo.tomar_dano(dano)
+
+# ============================================================
+# PREDADOR DO RIMURU
+# ============================================================
+
+@rpc("authority", "call_local", "reliable")
+func aplicar_predador(caminho_inimigo: NodePath, caminho_projetil: NodePath) -> void:
+
+	var inimigo := get_node_or_null(caminho_inimigo)
+	var projetil := get_node_or_null(caminho_projetil)
+
+	if inimigo == null or projetil == null:
+		return
+
+	if inimigo.has_method("tocar_engolir"):
+		inimigo.tocar_engolir()
+
+	if inimigo.has_method("recuperar_vida"):
+		inimigo.recuperar_vida(5)
+
+	_animar_projetil_sendo_engolido(projetil, inimigo)
+
+
+# Em vez do projétil simplesmente sumir, ele é "puxado" visualmente até o
+# Rimuru (encolhendo) antes de ser removido -- dá a impressão de ter sido
+# engolido de verdade. Roda igual em todo mundo (é chamado de dentro de um
+# RPC "call_local").
+func _animar_projetil_sendo_engolido(projetil: Node, inimigo: Node) -> void:
+	if not (projetil is Node2D) or not (inimigo is Node2D):
+		if is_instance_valid(projetil):
+			projetil.queue_free()
+		return
+
+	projetil.set_process(false) # para o movimento normal do projétil (projetil.gd)
+
+	if projetil.has_node("CollisionShape2D"):
+		projetil.get_node("CollisionShape2D").set_deferred("disabled", true)
+
+	var tween := projetil.create_tween()
+	tween.tween_property(projetil, "global_position", inimigo.global_position, 0.18)
+	tween.parallel().tween_property(projetil, "scale", Vector2.ZERO, 0.18)
+	tween.finished.connect(func():
+		if is_instance_valid(projetil):
+			projetil.queue_free()
+	)

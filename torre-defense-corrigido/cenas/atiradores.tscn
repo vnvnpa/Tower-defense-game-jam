@@ -1,9 +1,8 @@
 [gd_scene format=3 uid="uid://d2br46qne6f3w"]
 
 [ext_resource type="Script" uid="uid://swpxic75q33l" path="res://script/atiradores.gd" id="1_efhil"]
-[ext_resource type="Texture2D" uid="uid://c0xyrayn4y7p7" path="res://icon.svg" id="1_m6cbh"]
+[ext_resource type="Texture2D" uid="uid://c6sxsc60a2yix" path="res://icon.svg" id="1_m6cbh"]
 [ext_resource type="PackedScene" uid="uid://omutnw5cwk83" path="res://cenas/projetil.tscn" id="2_6stsi"]
-[ext_resource type="Texture2D" uid="uid://bdnj5eqew5c8a" path="res://acerts/35 Sem Título_20260902132749.png" id="4_28x5j"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xrivr"]
 radius = 187.80841
@@ -32,9 +31,3 @@ position = Vector2(49, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="areaDeReceberB=" unique_id=1603244024]
 shape = SubResource("CapsuleShape2D_xrivr")
-
-[node name="visivel" type="Sprite2D" parent="." unique_id=1657132786]
-texture_filter = 1
-position = Vector2(8, 25)
-scale = Vector2(0.15, 0.15)
-texture = ExtResource("4_28x5j")

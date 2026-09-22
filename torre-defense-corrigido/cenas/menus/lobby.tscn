@@ -12,7 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 1, 1, 0.4509804)
+color = Color(1, 1, 1, 0.36078432)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=2119107481]
 anchors_preset = 8
@@ -30,17 +30,23 @@ theme_override_constants/separation = 14
 
 [node name="Titulo" type="Label" parent="VBoxContainer" unique_id=15841501]
 layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9529412)
+theme_override_constants/line_spacing = 5
 theme_override_font_sizes/font_size = 28
 text = "Sala multiplayer"
 horizontal_alignment = 1
 
 [node name="LabelStatus" type="Label" parent="VBoxContainer" unique_id=1552619796]
 layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9529412)
+theme_override_constants/line_spacing = 5
 text = "0 jogador(es) na sala"
 horizontal_alignment = 1
 
 [node name="LabelCodigo" type="Label" parent="VBoxContainer" unique_id=708215940]
 layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9529412)
+theme_override_constants/line_spacing = 5
 text = "Código da sala: ----"
 horizontal_alignment = 1
 
@@ -54,6 +60,8 @@ alignment = 1
 
 [node name="LabelModo" type="Label" parent="VBoxContainer/HBoxModo" unique_id=1382909383]
 layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9529412)
+theme_override_constants/line_spacing = 5
 text = "Modo de jogo: "
 
 [node name="OpcoesModo" type="OptionButton" parent="VBoxContainer/HBoxModo" unique_id=1511916368]
