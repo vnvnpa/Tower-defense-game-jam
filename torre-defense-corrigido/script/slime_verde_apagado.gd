@@ -8,6 +8,10 @@ extends Node2D
 
 var posicao_anterior: Vector2 = Vector2.ZERO
 var life = 50
+var _morrendo: bool = false
+
+func esta_morrendo() -> bool:
+	return _morrendo
 
 func _ready():
 	posicao_anterior = global_position
@@ -32,11 +36,14 @@ func _process(_delta):
 			slime.flip_v = delta_pos.y < 0  # indo pra cima -> inverte verticalmente
 
 func tomar_dano(dano: int):
+	# Já morreu? Ignora qualquer dano extra (evita moeda duplicada enquanto
+	# o nó ainda não foi removido de verdade).
+	if _morrendo:
+		return
+
 	life -= dano
 	vida.text = str(life)
 	if life <= 0:
-		# FIX: era ControleDeTudo.coin += 1 direto, rodando em cada peer
-		# separadamente (dessincronizava a moeda). ganhar_coin() já é
-		# autoritativa: só o host aplica de fato e replica pra todo mundo.
+		_morrendo = true
 		ControleDeTudo.ganhar_coin(1)
 		get_parent().queue_free()

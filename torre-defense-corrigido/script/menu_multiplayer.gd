@@ -8,8 +8,8 @@ extends CanvasLayer
 @onready var label_status: Label = $Label2
 @onready var caixa_botoes: VBoxContainer = $VBoxContainer
 
-const CENA_DO_JOGO := "res://cenas/primaria.tscn"
 const CENA_LOBBY := "res://cenas/menus/lobby.tscn"
+const CENA_NIVEIS := "res://cenas/menus/niveis.tscn"
 
 
 func _ready() -> void:
@@ -35,11 +35,6 @@ func _ready() -> void:
 	caixa_botoes.modulate = PerfilJogador.cor_favorita
 
 
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.pressed:
-		print(">>> clique captado em: ", event.position)
-
-
 func _mostrar_ip_local() -> void:
 	var ips := IP.get_local_addresses()
 	var ip_lan := ""
@@ -54,12 +49,12 @@ func _mostrar_ip_local() -> void:
 
 
 func _on_sozinho_pressed() -> void:
-	get_tree().change_scene_to_file(CENA_DO_JOGO)
+	# Solo agora passa pela tela de níveis (campanha), não vai direto pro jogo.
+	get_tree().change_scene_to_file(CENA_NIVEIS)
 
 
 func _on_criar_servidor_pressed() -> void:
 	NetworkManager.criar_servidor()
-	label_status.text = "Servidor criado. Aguardando jogadores..."
 
 
 func _on_ip_ou_codigo_submetido(valor: String) -> void:
@@ -98,7 +93,5 @@ func _on_voltar_pressed() -> void:
 
 
 func _on_servidor_criado() -> void:
-	label_status.text = "Servidor criado. Aguardando jogadores..."
-	# FIX: ia direto pro jogo (CENA_DO_JOGO) e não dava pra escolher modo
-	# nem ver quem conectou. Agora o host cai no lobby.
+	label_status.text = "Sala local criada. Escolha o modo no lobby."
 	get_tree().change_scene_to_file(CENA_LOBBY)

@@ -1,10 +1,9 @@
 extends Node2D
 
-# tipo_torre/cena_torre são preenchidos pela loja (lojaScripit.gd) quando o
-# jogador compra essa torre. São usados só na hora de pedir o spawn de
-# verdade pro host (NetworkManager.pedir_spawn_torre).
+# tipo_torre/custo são preenchidos pela loja (lojaScripit.gd) quando o
+# jogador compra essa torre.
 @export var tipo_torre: String = "basica"
-var cena_torre: String = ""
+@export var custo: int = 10
 
 var arrastando: bool = true
 var pronto_para_fixar: bool = false
@@ -193,13 +192,17 @@ func _unhandled_input(event):
 			colocar()
 
 func colocar():
-	# FIX: antes descontava a moeda direto aqui (ControleDeTudo.coin -= 10),
-	# sem passar pelo host nem validar saldo -- cada peer via um valor
-	# diferente de moeda. Agora esse nó é só o PREVIEW que seguiu o mouse:
-	# ele pede o spawn de verdade pro host (que valida o custo) e se destrói.
-	# A torre "oficial" chega pra todo mundo (inclusive quem pediu) através
-	# de NetworkManager.spawnar_torre.
-	if cena_torre == "":
-		cena_torre = scene_file_path
-	NetworkManager.pedir_spawn_torre.rpc_id(1, tipo_torre, cena_torre, global_position)
-	queue_free()
+	# Não deixa confirmar uma posição proibida perto do caminho dos
+	# inimigos. O preview continua seguindo o mouse para o jogador poder
+	# escolher outro lugar válido.
+	if not NetworkManager.posicao_torre_valida(global_position):
+		ControleDeTudo.invalido.emit()
+		return
+
+	if not ControleDeTudo.gastar_coin(custo):
+		ControleDeTudo.invalido.emit()
+		return
+
+	# Sem rede: o próprio preview vira a torre definitiva, fixada aqui.
+	arrastando = false
+	area_de_receber_b_.monitorable = true

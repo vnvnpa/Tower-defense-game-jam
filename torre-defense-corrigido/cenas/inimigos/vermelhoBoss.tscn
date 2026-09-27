@@ -266,6 +266,7 @@ animations = [{
 [node name="BossVermelho" type="Node2D" unique_id=596373749]
 script = ExtResource("1_tdvmg")
 tipo_inimigo = 1
+vida = 150
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1359169487 groups=["inimigos"]]
 

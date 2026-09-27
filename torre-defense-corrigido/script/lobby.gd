@@ -7,12 +7,29 @@ extends CanvasLayer
 @onready var label_status: Label = $VBoxContainer/LabelStatus
 @onready var label_codigo: Label = $VBoxContainer/LabelCodigo
 @onready var caixa_principal: VBoxContainer = $VBoxContainer
+@onready var label_descricao_modo: Label = $VBoxContainer/LabelDescricaoModo
 
 const CENA_DO_JOGO := "res://cenas/primaria.tscn"
 const CENA_MENU_MULTIPLAYER := "res://cenas/menus/menumultiplayer.tscn"
 
 # Precisa bater com o que primaria.gd sabe interpretar em _aplicar_modo_de_jogo()
-var modos := ["classico", "sobrevivencia", "corrida"]
+var modos := ["classico", "rapido", "so_rimuru", "infinito", "sobrevivencia", "corrida"]
+var nomes_modos := [
+	"Clássico",
+	"Rápido",
+	"Só Rimuru",
+	"Infinito",
+	"Sobrevivência",
+	"Corrida"
+]
+var descricoes_modos := [
+	"10 rodadas, ritmo padrão e economia normal.",
+	"20 rodadas, mais inimigos e intervalos menores.",
+	"Somente Rimuru aparece como inimigo. Economia própria.",
+	"Sem fim: a quantidade de inimigos aumenta com as rodadas.",
+	"Pressão constante, muitas unidades e partidas longas.",
+	"10 rodadas em ritmo acelerado, com mais inimigos."
+]
 
 
 func _ready() -> void:
@@ -20,10 +37,11 @@ func _ready() -> void:
 
 	var sou_host := multiplayer.is_server()
 
-	for modo in modos:
-		opcoes_modo.add_item(modo)
+	for nome in nomes_modos:
+		opcoes_modo.add_item(nome)
 	var indice_atual := modos.find(NetworkManager.modo_de_jogo)
 	opcoes_modo.selected = maxi(indice_atual, 0)
+	_atualizar_descricao_modo(opcoes_modo.selected)
 
 	# Só o host escolhe o modo e aperta "pronto"; os clientes só acompanham.
 	opcoes_modo.disabled = not sou_host
@@ -60,6 +78,7 @@ func _atualizar_lista() -> void:
 
 
 func _on_modo_selecionado(indice: int) -> void:
+	_atualizar_descricao_modo(indice)
 	if not multiplayer.is_server():
 		return
 	NetworkManager.definir_modo_de_jogo(modos[indice])
@@ -69,6 +88,11 @@ func _on_modo_atualizado(modo: String) -> void:
 	var indice := modos.find(modo)
 	if indice != -1:
 		opcoes_modo.selected = indice
+		label_descricao_modo.text = descricoes_modos[indice]
+
+func _atualizar_descricao_modo(indice: int) -> void:
+	if indice >= 0 and indice < descricoes_modos.size():
+		label_descricao_modo.text = descricoes_modos[indice]
 
 
 func _on_pronto_pressed() -> void:
@@ -78,7 +102,7 @@ func _on_pronto_pressed() -> void:
 
 
 func _on_partida_iniciada() -> void:
-	get_tree().change_scene_to_file(CENA_DO_JOGO)
+	get_tree().change_scene_to_file(NetworkManager.cena_do_modo())
 
 
 func _on_jogador_saiu(_id: int) -> void:

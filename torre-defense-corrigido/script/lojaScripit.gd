@@ -13,16 +13,15 @@ func fechar_abrirLoja():
 		pressed = true
 
 @export var atirador_scene: PackedScene
-@export var tipo_torre: String = "basica"  # tem que bater com o _custo_da_torre() no NetworkManager
+@export var tipo_torre: String = "basica"
+@export var custo: int = 10
 
 func _on_texture_button_pressed() -> void:
-	# FIX: antes chamava NetworkManager.pedir_spawn_torre.rpc_id() direto com
-	# 3 argumentos, mas a função só aceitava 2 -- a RPC nunca rodava e nenhuma
-	# torre era criada. Agora criamos um PREVIEW local da própria cena da
-	# torre (ela já sabe seguir o mouse até o clique, ver atiradores.gd) e é
-	# o clique que dispara o pedido de spawn de verdade pro host.
+	# Cria um PREVIEW local da cena da torre (ela já sabe seguir o mouse até
+	# o clique, ver atiradores.gd); o próprio clique confirma a compra e
+	# fixa a torre no lugar (sem rede, tudo local).
 	var preview = atirador_scene.instantiate()
 	preview.tipo_torre = tipo_torre
-	preview.cena_torre = atirador_scene.resource_path
+	preview.custo = custo
 	get_tree().current_scene.add_child(preview)
 	fechar_abrirLoja()

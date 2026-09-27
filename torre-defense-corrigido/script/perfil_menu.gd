@@ -32,7 +32,6 @@ func _ready() -> void:
 		# Primeira vez no jogo: valores padrão razoáveis.
 		campo_idade.value = 10
 		campo_cor.color = Color(0.2, 0.6, 1.0)
-		ColorPicker.color = ColorPicker.color * 5.0
 
 func _on_continuar_pressed() -> void:
 	var nick := campo_nick.text.strip_edges()

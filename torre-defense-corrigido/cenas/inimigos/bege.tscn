@@ -263,9 +263,9 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="miniBossEscuro" type="Node2D" unique_id=1374028115]
+[node name="bege" type="Node2D" unique_id=1374028115]
 script = ExtResource("1_script")
-vida = 50
+vida = 30
 velocidade = 110.0
 
 [node name="Area2D" type="Area2D" parent="." unique_id=439796208 groups=["inimigos"]]

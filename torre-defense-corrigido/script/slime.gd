@@ -6,7 +6,7 @@ extends Node2D
 
 enum TipoInimigo {
 	SLIME_COMUM,
-	BOSS_VERMELHO,
+	BOSS,
 	RIMURU,
 	EXPLOSIVO
 }
@@ -355,11 +355,7 @@ func usar_habilidade_especial():
 
 func predador():
 
-	if tipo_inimigo != TipoInimigo.RIMURU:
-		return
-
-
-	if not multiplayer.is_server():
+	if tipo_inimigo != TipoInimigo.RIMURU or _morrendo:
 		return
 
 
@@ -386,12 +382,9 @@ func predador():
 
 			print("Rimuru devorou um projétil de água!")
 
-
-			NetworkManager.aplicar_predador.rpc(
-				get_path(),
-				bala.get_path()
-			)
-
+			bala.queue_free()
+			tocar_engolir()
+			recuperar_vida(15)
 
 			return
 

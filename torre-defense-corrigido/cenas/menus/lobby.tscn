@@ -68,6 +68,13 @@ text = "Modo de jogo: "
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="LabelDescricaoModo" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.1, 0.1, 0.1, 1)
+text = "10 rodadas, ritmo padrão e economia normal."
+autowrap_mode = 2
+horizontal_alignment = 1
+
 [node name="BotaoPronto" type="Button" parent="VBoxContainer" unique_id=514298623]
 layout_mode = 2
 theme = ExtResource("2_lobby")
