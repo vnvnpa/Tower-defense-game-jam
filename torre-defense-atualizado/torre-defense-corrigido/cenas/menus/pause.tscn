@@ -1,0 +1,54 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://script/pause.gd" id="1_pause"]
+[ext_resource type="Theme" uid="uid://5vaghdugc6ib" path="res://themas/butonDeMorte.tres" id="2_pause"]
+
+[node name="Pause" type="CanvasLayer"]
+layer = 25
+script = ExtResource("1_pause")
+
+[node name="Fundo" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="Painel" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Painel"]
+layout_mode = 2
+theme_override_constants/separation = 22
+
+[node name="Titulo" type="Label" parent="Painel/VBoxContainer"]
+layout_mode = 2
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 38
+text = "Pausado"
+
+[node name="Resume" type="Button" parent="Painel/VBoxContainer"]
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+theme = ExtResource("2_pause")
+theme_override_constants/outline_size = 4
+text = "resume"
+
+[node name="Opcoes" type="Button" parent="Painel/VBoxContainer"]
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+theme = ExtResource("2_pause")
+theme_override_constants/outline_size = 4
+text = "opções"
+
+[node name="Voltar" type="Button" parent="Painel/VBoxContainer"]
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+theme = ExtResource("2_pause")
+theme_override_constants/outline_size = 4
+text = "voltar"

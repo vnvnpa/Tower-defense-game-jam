@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://ccugr7q8c3qwf"]
+
+[ext_resource type="Script" uid="uid://odxp0mthiuak" path="res://script/intro.gd" id="1_intro"]
+[ext_resource type="Script" uid="uid://d4jmcqmf52vvk" path="res://script/icone_claude.gd" id="2_icone"]
+
+[node name="Intro" type="Control" unique_id=27102684]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_intro")
+
+[node name="Fundo" type="ColorRect" parent="." unique_id=201922538]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.02, 0.02, 0.03, 1)
+
+[node name="LabelVnvnpa" type="Label" parent="." unique_id=464096230]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -40.0
+offset_right = 200.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.94, 0.94, 0.96, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.6)
+theme_override_font_sizes/font_size = 46
+text = "vnvnpa"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LabelProduction" type="Label" parent="." unique_id=1433332862]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.28
+anchor_top = 0.1
+anchor_right = 0.28
+anchor_bottom = 0.1
+offset_left = -90.0
+offset_top = -14.0
+offset_right = 90.0
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.75, 0.75, 0.8, 1)
+theme_override_font_sizes/font_size = 20
+text = "Production"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RodapeAnthropic" type="HBoxContainer" parent="." unique_id=150840565]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.93
+anchor_right = 0.5
+anchor_bottom = 0.93
+offset_left = -70.0
+offset_top = -12.0
+offset_right = 70.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="IconeClaude" type="Control" parent="RodapeAnthropic" unique_id=323033129]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+size_flags_vertical = 4
+script = ExtResource("2_icone")
+
+[node name="LabelAnthropic" type="Label" parent="RodapeAnthropic" unique_id=1511081425]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.7, 0.74, 1)
+theme_override_font_sizes/font_size = 14
+text = "Anthropic"
+vertical_alignment = 1

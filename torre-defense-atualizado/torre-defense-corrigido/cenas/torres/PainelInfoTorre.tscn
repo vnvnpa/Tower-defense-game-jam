@@ -1,0 +1,67 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://script/painel_info_torre.gd" id="1_painel"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fundo"]
+bg_color = Color(0.09, 0.09, 0.11, 0.92)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 0.35)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 12.0
+content_margin_top = 10.0
+content_margin_right = 12.0
+content_margin_bottom = 10.0
+
+[node name="PainelInfoTorre" type="PanelContainer"]
+custom_minimum_size = Vector2(230, 0)
+theme_override_styles/panel = SubResource("StyleBoxFlat_fundo")
+script = ExtResource("1_painel")
+
+[node name="Margem" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="Caixa" type="VBoxContainer" parent="Margem"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Titulo" type="Label" parent="Margem/Caixa"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.4, 1)
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+text = "Torre"
+
+[node name="Info" type="Label" parent="Margem/Caixa"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 14
+autowrap_mode = 3
+text = "Informações"
+
+[node name="Botoes" type="HBoxContainer" parent="Margem/Caixa"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 8
+
+[node name="Confirmar" type="Button" parent="Margem/Caixa/Botoes"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Confirmar"
+
+[node name="Cancelar" type="Button" parent="Margem/Caixa/Botoes"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cancelar"
+
+[node name="Remover" type="Button" parent="Margem/Caixa/Botoes"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.4, 0.4, 1)
+text = "Remover"
+visible = false

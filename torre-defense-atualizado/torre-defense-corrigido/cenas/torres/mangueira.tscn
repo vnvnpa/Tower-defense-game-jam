@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://d2br46qne6f3w"]
+
+[ext_resource type="Script" uid="uid://swpxic75q33l" path="res://script/atiradores.gd" id="1_efhil"]
+[ext_resource type="Texture2D" uid="uid://c6sxsc60a2yix" path="res://icon.svg" id="1_m6cbh"]
+[ext_resource type="PackedScene" uid="uid://omutnw5cwk83" path="res://cenas/projetil.tscn" id="2_6stsi"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xrivr"]
+radius = 187.80841
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xrivr"]
+height = 60.0
+
+[node name="Node2D" type="Node2D" unique_id=677093148]
+script = ExtResource("1_efhil")
+projetil_scene = ExtResource("2_6stsi")
+tipo_torre = "mangueira"
+custo = 10
+dano_base = 10
+modo_ataque = "mira"
+causa_lentidao = true
+percentual_lentidao = 0.18
+duracao_lentidao = 3.0
+
+[node name="Icon" type="Sprite2D" parent="." unique_id=1688763858]
+scale = Vector2(0.23242188, 0.5078125)
+texture = ExtResource("1_m6cbh")
+
+[node name="are" type="Area2D" parent="." unique_id=829378561]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="are" unique_id=1468733866]
+shape = SubResource("CircleShape2D_xrivr")
+debug_color = Color(0, 0.3137255, 0.20784314, 0.60784316)
+
+[node name="PontoDeTiro" type="Marker2D" parent="." unique_id=183727277]
+position = Vector2(49, 0)
+
+[node name="areaDeReceberB=" type="Area2D" parent="." unique_id=265105007 groups=["torres"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="areaDeReceberB=" unique_id=1603244024]
+shape = SubResource("CapsuleShape2D_xrivr")

@@ -1,0 +1,51 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://script/creditos.gd" id="1_cred"]
+[ext_resource type="Theme" uid="uid://5vaghdugc6ib" path="res://themas/butonDeMorte.tres" id="2_cred"]
+
+[node name="Creditos" type="CanvasLayer"]
+layer = 35
+script = ExtResource("1_cred")
+
+[node name="Fundo" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08627451, 0.10980392, 0.14901961, 0.95)
+
+[node name="Painel" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Painel"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Titulo" type="Label" parent="Painel/VBoxContainer"]
+layout_mode = 2
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 38
+text = "Créditos"
+
+[node name="TextoCreditos" type="Label" parent="Painel/VBoxContainer"]
+layout_mode = 2
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 20
+text = "Criação e desenvolvimento: vnvnpa
+
+Feito com Godot Engine
+
+(edite este texto em cenas/menus/creditos.tscn
+com os nomes que você quiser colocar)"
+
+[node name="Voltar" type="Button" parent="Painel/VBoxContainer"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+theme = ExtResource("2_cred")
+theme_override_constants/outline_size = 4
+text = "voltar"
