@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://bv1ixov5r3vwy"]
+
+[ext_resource type="Script" uid="uid://h4yfr226uogw" path="res://script/projetil.gd" id="1_1ive1"]
+[ext_resource type="Texture2D" uid="uid://bla28hpx6ktv6" path="res://acerts/torre/tirodAguaFino (2).png" id="2_1ive1"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xrivr"]
+radius = 5.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3hcvh"]
+atlas = ExtResource("2_1ive1")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t5vev"]
+atlas = ExtResource("2_1ive1")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ue1jl"]
+atlas = ExtResource("2_1ive1")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_22aay"]
+atlas = ExtResource("2_1ive1")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eu2kf"]
+atlas = ExtResource("2_1ive1")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vwp06"]
+atlas = ExtResource("2_1ive1")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xrivr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3hcvh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t5vev")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ue1jl")
+}],
+"loop": 1,
+"name": &"aoAcertar",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_22aay")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eu2kf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vwp06")
+}],
+"loop": 1,
+"name": &"voando",
+"speed": 5.0
+}]
+
+[node name="Area2D" type="Area2D" unique_id=1053918323]
+script = ExtResource("1_1ive1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1140321137]
+position = Vector2(1, -2)
+shape = SubResource("CapsuleShape2D_xrivr")
+
+[node name="Icon" type="AnimatedSprite2D" parent="." unique_id=1959761924]
+texture_filter = 1
+position = Vector2(6.7762636e-21, 5.684342e-14)
+rotation = -1.5707964
+scale = Vector2(1.064, 1.999)
+sprite_frames = SubResource("SpriteFrames_xrivr")
+animation = &"voando"
+frame_progress = 0.9236802

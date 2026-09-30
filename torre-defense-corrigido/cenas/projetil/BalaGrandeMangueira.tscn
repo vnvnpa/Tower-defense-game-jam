@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://omutnw5cwk83"]
+
+[ext_resource type="Script" uid="uid://h4yfr226uogw" path="res://script/projetil.gd" id="1_4ui5s"]
+[ext_resource type="Texture2D" uid="uid://dwp2uhtp546fi" path="res://acerts/torre/bala de agua.png" id="2_ofmbe"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xrivr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k4p1n"]
+atlas = ExtResource("2_ofmbe")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_urn0q"]
+atlas = ExtResource("2_ofmbe")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2vt3l"]
+atlas = ExtResource("2_ofmbe")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rrddr"]
+atlas = ExtResource("2_ofmbe")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vi2o5"]
+atlas = ExtResource("2_ofmbe")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lr74c"]
+atlas = ExtResource("2_ofmbe")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xrivr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k4p1n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_urn0q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2vt3l")
+}],
+"loop": 1,
+"name": &"aoAcertar",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rrddr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vi2o5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lr74c")
+}],
+"loop": 1,
+"name": &"voando",
+"speed": 5.0
+}]
+
+[node name="Area2D" type="Area2D" unique_id=1053918323]
+script = ExtResource("1_4ui5s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1140321137]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_xrivr")
+
+[node name="Icon" type="AnimatedSprite2D" parent="." unique_id=760894091]
+texture_filter = 1
+position = Vector2(-1, 2)
+rotation = 1.5707964
+scale = Vector2(0.849, 1.528)
+sprite_frames = SubResource("SpriteFrames_xrivr")
+animation = &"aoAcertar"
+frame_progress = 0.7131917

@@ -1,0 +1,117 @@
+[gd_scene format=3 uid="uid://d2br46qne6f3w"]
+
+[ext_resource type="Script" uid="uid://swpxic75q33l" path="res://script/atiradores.gd" id="1_efhil"]
+[ext_resource type="PackedScene" uid="uid://omutnw5cwk83" path="res://cenas/projetil/BalaGrandeMangueira.tscn" id="2_6stsi"]
+[ext_resource type="Texture2D" uid="uid://dyaf3h6a1l1f7" path="res://acerts/torre/corpoMangueiraParado.png" id="3_k8lo8"]
+[ext_resource type="Texture2D" uid="uid://dx34k74x1glka" path="res://acerts/torre/cabeça da mangueira.png" id="4_mrvcj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ag8u5"]
+atlas = ExtResource("3_k8lo8")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_13qdw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ag8u5")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w7kia"]
+atlas = ExtResource("4_mrvcj")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0053d"]
+atlas = ExtResource("4_mrvcj")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oadld"]
+atlas = ExtResource("4_mrvcj")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ywfnb"]
+atlas = ExtResource("4_mrvcj")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xrivr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w7kia")
+}],
+"loop": 1,
+"name": &"baixo",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0053d")
+}],
+"loop": 1,
+"name": &"cima",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oadld")
+}],
+"loop": 1,
+"name": &"direita",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ywfnb")
+}],
+"loop": 1,
+"name": &"esquerda",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xrivr"]
+radius = 187.80841
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xrivr"]
+height = 60.0
+
+[node name="Node2D" type="Node2D" unique_id=677093148]
+script = ExtResource("1_efhil")
+tipo_torre = "mangueira"
+custo = 10
+dano_base = 10
+projetil_scene = ExtResource("2_6stsi")
+alcance = 187.8
+agua_por_disparo = 1
+causa_lentidao = true
+percentual_lentidao = 0.5
+duracao_lentidao = 3.0
+
+[node name="corpo" type="AnimatedSprite2D" parent="." unique_id=1899553951]
+texture_filter = 1
+position = Vector2(0.8, 6.76)
+scale = Vector2(1.519, 3.356)
+sprite_frames = SubResource("SpriteFrames_13qdw")
+
+[node name="cabeçaMovel" type="AnimatedSprite2D" parent="." unique_id=450704436]
+texture_filter = 1
+position = Vector2(-7, -42)
+scale = Vector2(1.519, 3.356)
+sprite_frames = SubResource("SpriteFrames_xrivr")
+animation = &"cima"
+
+[node name="are" type="Area2D" parent="." unique_id=829378561]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="are" unique_id=1468733866]
+shape = SubResource("CircleShape2D_xrivr")
+debug_color = Color(0, 0.3137255, 0.20784314, 0.60784316)
+
+[node name="PontoDeTiro" type="Marker2D" parent="." unique_id=183727277]
+position = Vector2(49, 0)
+
+[node name="areaDeReceberB=" type="Area2D" parent="." unique_id=265105007 groups=["torres"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="areaDeReceberB=" unique_id=1603244024]
+shape = SubResource("CapsuleShape2D_xrivr")

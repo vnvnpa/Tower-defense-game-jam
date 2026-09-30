@@ -1,0 +1,72 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://script/opcoes.gd" id="1_opc"]
+[ext_resource type="Theme" uid="uid://5vaghdugc6ib" path="res://themas/butonDeMorte.tres" id="2_opc"]
+
+[node name="Opcoes" type="CanvasLayer"]
+layer = 30
+script = ExtResource("1_opc")
+
+[node name="Fundo" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08627451, 0.10980392, 0.14901961, 0.92)
+
+[node name="Painel" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Painel"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="Titulo" type="Label" parent="Painel/VBoxContainer"]
+layout_mode = 2
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 38
+text = "Opções"
+
+[node name="Creditos" type="Button" parent="Painel/VBoxContainer"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+theme = ExtResource("2_opc")
+theme_override_constants/outline_size = 4
+text = "créditos"
+
+[node name="AlterarPerfil" type="Button" parent="Painel/VBoxContainer"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+theme = ExtResource("2_opc")
+theme_override_constants/outline_size = 4
+text = "perfil"
+
+[node name="SomDoJogo" type="Button" parent="Painel/VBoxContainer"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+toggle_mode = true
+button_pressed = true
+theme = ExtResource("2_opc")
+theme_override_constants/outline_size = 4
+text = "Som do jogo: ligado"
+
+[node name="SomDeTiro" type="Button" parent="Painel/VBoxContainer"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+toggle_mode = true
+button_pressed = true
+theme = ExtResource("2_opc")
+theme_override_constants/outline_size = 4
+text = "Som de tiro: ligado"
+
+[node name="Voltar" type="Button" parent="Painel/VBoxContainer"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+theme = ExtResource("2_opc")
+theme_override_constants/outline_size = 4
+text = "voltar"

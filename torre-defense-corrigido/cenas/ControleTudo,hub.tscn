@@ -1,0 +1,96 @@
+[gd_scene format=3 uid="uid://bv6y1ckpdqb5i"]
+
+[ext_resource type="Script" uid="uid://dfhkj5no8sjwk" path="res://script/controle_tudo,hub.gd" id="1_ucigx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_agua_fundo"]
+bg_color = Color(0.4, 0.4, 0.4, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_agua_cheia"]
+bg_color = Color(0.14901961, 0.5568628, 0.9647059, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="hubMoedaseVida" type="CanvasLayer" unique_id=402603602]
+script = ExtResource("1_ucigx")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=959610403]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 61.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=447898459]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="AguaContainer" type="Control" parent="MarginContainer/VBoxContainer" unique_id=811606503]
+custom_minimum_size = Vector2(140, 26)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="AguaBarra" type="ProgressBar" parent="MarginContainer/VBoxContainer/AguaContainer" unique_id=693337526]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -936.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_agua_fundo")
+theme_override_styles/fill = SubResource("StyleBoxFlat_agua_cheia")
+value = 100.0
+show_percentage = false
+
+[node name="AguaLabel" type="Label" parent="MarginContainer/VBoxContainer/AguaContainer" unique_id=682060238]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -933.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9607843)
+theme_override_font_sizes/font_size = 16
+text = "100/100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="coinLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=84572974]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0.3882353, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9607843)
+theme_override_colors/font_outline_color = Color(0, 0.06666667, 0.14901961, 0.83137256)
+theme_override_font_sizes/font_size = 25
+text = "gg"
+
+[node name="lunarLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1775130708]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.89813316, 0.98200923, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9607843)
+theme_override_colors/font_outline_color = Color(0, 0.06666667, 0.14901961, 0.83137256)
+theme_override_font_sizes/font_size = 25
+text = "gg"
+
+[node name="vidaLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=752222358]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_color = Color(1, 0.23921569, 0.3882353, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9607843)
+theme_override_colors/font_outline_color = Color(0, 0.06666667, 0.14901961, 0.83137256)
+theme_override_font_sizes/font_size = 25
+text = "gg"

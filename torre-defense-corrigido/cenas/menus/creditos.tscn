@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://b1v3a32pwsx5t"]
+
+[ext_resource type="Script" uid="uid://bl1ym8k0uxrms" path="res://script/creditos.gd" id="1_cred"]
+[ext_resource type="Theme" uid="uid://5vaghdugc6ib" path="res://themas/butonDeMorte.tres" id="2_cred"]
+
+[node name="Creditos" type="CanvasLayer" unique_id=1701907563]
+layer = 35
+script = ExtResource("1_cred")
+
+[node name="Fundo" type="ColorRect" parent="." unique_id=811819207]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08627451, 0.10980392, 0.14901961, 0.95)
+
+[node name="Painel" type="CenterContainer" parent="." unique_id=809067897]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Painel" unique_id=1404073495]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="Titulo" type="Label" parent="Painel/VBoxContainer" unique_id=549198207]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0.63529414, 1)
+theme_override_colors/font_shadow_color = Color(5.7756904e-07, 0.6941427, 0.5861384, 1)
+theme_override_font_sizes/font_size = 38
+text = "Créditos"
+horizontal_alignment = 1
+
+[node name="TextoCreditos" type="Label" parent="Painel/VBoxContainer" unique_id=1180014077]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "Criação e desenvolvimento: vnvnpa
+
+Feito com Godot Engine
+
+total apoio e orientação do Claude.
+"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Painel/VBoxContainer" unique_id=1677786062]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="insta" type="LinkButton" parent="Painel/VBoxContainer/HBoxContainer" unique_id=229962050]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92156863, 0.11372549, 0.5686275, 1)
+theme_override_font_sizes/font_size = 27
+text = "      Instagram"
+uri = "https://www.instagram.com/vnvnpa/"
+
+[node name="Smule" type="LinkButton" parent="Painel/VBoxContainer/HBoxContainer" unique_id=937372687]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92156863, 0.5529412, 0.8745098, 1)
+theme_override_font_sizes/font_size = 27
+text = "       Smule"
+uri = "https://www.smule.com/vnvnpa"
+
+[node name="youtube" type="LinkButton" parent="Painel/VBoxContainer/HBoxContainer" unique_id=1734908835]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6894788, 0, 0.20537388, 1)
+theme_override_font_sizes/font_size = 27
+text = "       Youtube"
+uri = "https://www.youtube.com/@filosofatosx/featured"
+
+[node name="Voltar" type="Button" parent="Painel/VBoxContainer" unique_id=1489492989]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+theme = ExtResource("2_cred")
+theme_override_constants/outline_size = 4
+text = "voltar"

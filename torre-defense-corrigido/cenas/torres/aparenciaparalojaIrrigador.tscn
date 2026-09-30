@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://d0ej27a3t75q6"]
+
+[node name="Control" type="Node2D" unique_id=1944533707]
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=508164073]
+offset_left = 44.0
+offset_top = 48.0
+offset_right = 60.0
+offset_bottom = 127.0
+color = Color(0.34232125, 0.30512232, 0.1401174, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="." unique_id=1465353518]
+offset_left = 48.0
+offset_top = -7.0
+offset_right = 56.0
+offset_bottom = 49.0
+color = Color(0.18598092, 0.18598092, 0.18598092, 1)

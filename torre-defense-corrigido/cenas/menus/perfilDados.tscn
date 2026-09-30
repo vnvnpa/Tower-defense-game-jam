@@ -1,0 +1,122 @@
+[gd_scene format=3 uid="uid://d1dwga2rl217m"]
+
+[ext_resource type="Script" uid="uid://r05iaewin0gv" path="res://script/perfil_dados.gd" id="1_pdados"]
+[ext_resource type="Theme" uid="uid://5vaghdugc6ib" path="res://themas/butonDeMorte.tres" id="2_pdados"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_resetar_normal"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+bg_color = Color(0.5, 0.15, 0.15, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_resetar_hover"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+bg_color = Color(0.7, 0.2, 0.2, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="PerfilDados" type="CanvasLayer" unique_id=442961067]
+script = ExtResource("1_pdados")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1380458023]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08627451, 0.10980392, 0.14901961, 0.92156863)
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1214587808]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=727931355]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="Titulo" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1847923664]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Perfil"
+horizontal_alignment = 1
+
+[node name="LabelNick" type="Label" parent="MarginContainer/VBoxContainer" unique_id=682051702]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.5, 1)
+theme_override_font_sizes/font_size = 26
+text = "(sem nick)"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=556789831]
+layout_mode = 2
+
+[node name="LabelOuro" type="Label" parent="MarginContainer/VBoxContainer" unique_id=35287147]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Ouro atual: 0"
+horizontal_alignment = 1
+
+[node name="LabelComuns" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1412642410]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Slimes comuns derrotados: 0"
+horizontal_alignment = 1
+
+[node name="LabelRaros" type="Label" parent="MarginContainer/VBoxContainer" unique_id=252707403]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Slimes raros derrotados: 0"
+horizontal_alignment = 1
+
+[node name="LabelRimuru" type="Label" parent="MarginContainer/VBoxContainer" unique_id=185723734]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Rimurus derrotados: 0"
+horizontal_alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=1276412141]
+layout_mode = 2
+
+[node name="EditarPerfil" type="Button" parent="MarginContainer/VBoxContainer" unique_id=826451042]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("2_pdados")
+theme_override_constants/outline_size = 4
+text = "editar perfil"
+
+[node name="ResetarTudo" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1514132865]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_resetar_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_resetar_hover")
+theme_override_styles/hover = SubResource("StyleBoxFlat_resetar_hover")
+text = "Resetar tudo"
+
+[node name="Voltar" type="Button" parent="MarginContainer/VBoxContainer" unique_id=2076996065]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("2_pdados")
+theme_override_constants/outline_size = 4
+text = "voltar"
