@@ -1,0 +1,115 @@
+[gd_scene format=3 uid="uid://8anb5wb61udm"]
+
+[ext_resource type="Script" uid="uid://bylfx3ny40x3h" path="res://script/controle_velocidade.gd" id="1_speed"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_na8sg"]
+bg_color = Color(0.7529412, 0.7529412, 0.03529412, 0.13333334)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ah71"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="ControleVelocidade" type="CanvasLayer" unique_id=1906025983]
+layer = 20
+script = ExtResource("1_speed")
+
+[node name="Painel" type="PanelContainer" parent="." unique_id=741809071]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -260.0
+offset_top = 556.99994
+offset_right = 38.10498
+offset_bottom = 648.45496
+grow_horizontal = 0
+scale = Vector2(0.71, 0.71)
+
+[node name="VBox" type="VBoxContainer" parent="Painel" unique_id=629348064]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="VelocidadeLabel" type="Label" parent="Painel/VBox" unique_id=282350253]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0.49803922, 1)
+theme_override_colors/font_shadow_color = Color(0.8, 0.03529412, 0, 0.7372549)
+theme_override_font_sizes/font_size = 20
+text = "Velocidade: 1x"
+horizontal_alignment = 1
+
+[node name="LinhaVelocidades" type="HBoxContainer" parent="Painel/VBox"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 4
+
+[node name="Botao1x" type="Button" parent="Painel/VBox/LinhaVelocidades"]
+custom_minimum_size = Vector2(46, 44)
+layout_mode = 2
+toggle_mode = true
+theme_override_colors/font_color = Color(0.5580729, 0.5580358, 0.087610774, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 0.09019608, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_constants/outline_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_na8sg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_5ah71")
+text = "1x"
+
+[node name="Botao2x" type="Button" parent="Painel/VBox/LinhaVelocidades"]
+custom_minimum_size = Vector2(46, 44)
+layout_mode = 2
+toggle_mode = true
+theme_override_colors/font_color = Color(0.5580729, 0.5580358, 0.087610774, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 0.09019608, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_constants/outline_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_na8sg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_5ah71")
+text = "2x"
+
+[node name="Botao4x" type="Button" parent="Painel/VBox/LinhaVelocidades"]
+custom_minimum_size = Vector2(46, 44)
+layout_mode = 2
+toggle_mode = true
+theme_override_colors/font_color = Color(0.5580729, 0.5580358, 0.087610774, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 0.09019608, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_constants/outline_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_na8sg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_5ah71")
+text = "4x"
+
+[node name="Botao6x" type="Button" parent="Painel/VBox/LinhaVelocidades"]
+custom_minimum_size = Vector2(46, 44)
+layout_mode = 2
+toggle_mode = true
+theme_override_colors/font_color = Color(0.5580729, 0.5580358, 0.087610774, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 0.09019608, 1)
+theme_override_colors/font_disabled_color = Color(0.4, 0.4, 0.4, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_constants/outline_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_na8sg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_5ah71")
+text = "6x"
+
+[node name="Botao8x" type="Button" parent="Painel/VBox/LinhaVelocidades"]
+custom_minimum_size = Vector2(46, 44)
+layout_mode = 2
+toggle_mode = true
+theme_override_colors/font_color = Color(0.5580729, 0.5580358, 0.087610774, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 0.09019608, 1)
+theme_override_colors/font_disabled_color = Color(0.4, 0.4, 0.4, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_constants/outline_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_na8sg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_5ah71")
+text = "8x"
+
+[node name="BotaoPause" type="Button" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -56.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = 48.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 22
+text = "II"
